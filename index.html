@@ -81,9 +81,12 @@
     max-width: 100%;
   }
 
-  .flag-banner span {
-    font-size: 18px;
-    line-height: 1;
+  .flag-icon {
+    width: 22px;
+    height: 15px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    flex-shrink: 0;
   }
 
   .brand-badge {
@@ -473,8 +476,11 @@
     gap: 6px;
   }
 
-  .lang-result .lang-name span {
-    font-size: 13px;
+  .lang-result .lang-name .flag-icon-sm {
+    width: 16px;
+    height: 11px;
+    border-radius: 1.5px;
+    flex-shrink: 0;
   }
 
   .lang-result .lang-text {
@@ -503,6 +509,126 @@
     font-size: 13.5px;
   }
 
+  /* Live conversation panel */
+  .conv-speakers {
+    display: flex;
+    gap: 12px;
+    padding: 18px 16px 8px;
+  }
+
+  .speaker-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: var(--card-light);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 10px;
+  }
+
+  .speaker-card select {
+    text-align: center;
+    padding: 9px 8px;
+    font-size: 12.5px;
+  }
+
+  .speaker-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+  }
+
+  .speaker-mic-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px var(--accent-glow);
+    flex-shrink: 0;
+  }
+
+  .speaker-mic-btn.recording {
+    background: var(--coral);
+  }
+
+  .speaker-status {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    text-align: center;
+    min-height: 2.6em;
+    display: flex;
+    align-items: center;
+  }
+
+  .conv-log {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 140px;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+
+  .conv-log:empty::before {
+    content: 'Pick a language for each side, then tap a microphone to start talking.';
+    color: var(--text-dim);
+    font-size: 13.5px;
+    display: block;
+    text-align: center;
+    padding: 20px 10px;
+  }
+
+  .conv-bubble {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .conv-bubble.side-a {
+    align-self: flex-start;
+    background: var(--card-light);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+  }
+
+  .conv-bubble.side-b {
+    align-self: flex-end;
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .conv-bubble.conv-error {
+    align-self: center;
+    background: rgba(255, 118, 117, 0.12);
+    border: 1px solid rgba(255, 118, 117, 0.4);
+    color: #ffb4b3;
+  }
+
+  .conv-original {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-bottom: 4px;
+  }
+
+  .conv-translated {
+    font-weight: 600;
+  }
+
   .visually-hidden {
     position: absolute;
     width: 1px; height: 1px;
@@ -518,20 +644,32 @@
 </style>
 </head>
 <body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="flag-ir" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#239f40"/><rect y="13.33" width="30" height="6.67" fill="#da0000"/></symbol>
+  <symbol id="flag-gb" viewBox="0 0 30 20"><rect width="30" height="20" fill="#00247d"/><path d="M0,0 30,20 M30,0 0,20" stroke="#fff" stroke-width="4"/><path d="M0,0 30,20 M30,0 0,20" stroke="#cf142b" stroke-width="1.6"/><path d="M15,0 15,20 M0,10 30,10" stroke="#fff" stroke-width="6.5"/><path d="M15,0 15,20 M0,10 30,10" stroke="#cf142b" stroke-width="4"/></symbol>
+  <symbol id="flag-es" viewBox="0 0 30 20"><rect width="30" height="20" fill="#aa151b"/><rect y="5" width="30" height="10" fill="#f1bf00"/></symbol>
+  <symbol id="flag-fr" viewBox="0 0 30 20"><rect width="10" height="20" fill="#0055a4"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ef4135"/></symbol>
+  <symbol id="flag-de" viewBox="0 0 30 20"><rect width="30" height="6.67" fill="#000"/><rect y="6.67" width="30" height="6.67" fill="#dd0000"/><rect y="13.33" width="30" height="6.67" fill="#ffce00"/></symbol>
+  <symbol id="flag-pt" viewBox="0 0 30 20"><rect width="30" height="20" fill="#ff0000"/><rect width="12" height="20" fill="#006600"/></symbol>
+  <symbol id="flag-it" viewBox="0 0 30 20"><rect width="10" height="20" fill="#009246"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ce2b37"/></symbol>
+  <symbol id="flag-sa" viewBox="0 0 30 20"><rect width="30" height="20" fill="#006c35"/></symbol>
+  <symbol id="flag-jp" viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="5.5" fill="#bc002d"/></symbol>
+  <symbol id="flag-tr" viewBox="0 0 30 20"><rect width="30" height="20" fill="#e30a17"/><circle cx="12" cy="10" r="5" fill="#fff"/><circle cx="13.3" cy="10" r="4" fill="#e30a17"/><polygon points="17,10 20.5,8.8 18.3,11.8 18.3,8.2 20.5,11.2" fill="#fff"/></symbol>
+</svg>
 <div class="wrap">
   <!-- TOP HEADER WITH FLAGS BANNER -->
   <div class="top-navbar">
     <div class="flag-banner" role="img" aria-label="Supported languages: Farsi, English, Spanish, French, German, Portuguese, Italian, Arabic, Japanese, Turkish">
-      <span aria-hidden="true">🇮🇷</span>
-      <span aria-hidden="true">🇬🇧</span>
-      <span aria-hidden="true">🇪🇸</span>
-      <span aria-hidden="true">🇫🇷</span>
-      <span aria-hidden="true">🇩🇪</span>
-      <span aria-hidden="true">🇵🇹</span>
-      <span aria-hidden="true">🇮🇹</span>
-      <span aria-hidden="true">🇸🇦</span>
-      <span aria-hidden="true">🇯🇵</span>
-      <span aria-hidden="true">🇹🇷</span>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-ir"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-gb"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-es"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-fr"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-de"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-pt"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-it"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-sa"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-jp"></use></svg>
+      <svg class="flag-icon" aria-hidden="true"><use href="#flag-tr"></use></svg>
     </div>
     <div class="brand-badge">AI Multi-Language Studio</div>
     <h1 class="brand-title">🌐 Tongue Tied</h1>
@@ -610,20 +748,44 @@
     </div>
     <div class="all-langs-grid" id="allLangsGrid"></div>
   </div>
+
+  <!-- Live conversation panel -->
+  <div class="panel" id="conversationPanel">
+    <div class="panel-head">
+      <span>🗣️ Live conversation — two people, two languages</span>
+    </div>
+    <div class="conv-speakers">
+      <div class="speaker-card">
+        <span class="speaker-label">Person A</span>
+        <label for="convLangA" class="visually-hidden">Person A's language</label>
+        <select id="convLangA"></select>
+        <button class="speaker-mic-btn" id="convMicA" type="button" aria-label="Person A: tap to talk" aria-pressed="false">🎙️</button>
+        <div class="speaker-status" id="convStatusA">Tap to talk</div>
+      </div>
+      <div class="speaker-card">
+        <span class="speaker-label">Person B</span>
+        <label for="convLangB" class="visually-hidden">Person B's language</label>
+        <select id="convLangB"></select>
+        <button class="speaker-mic-btn" id="convMicB" type="button" aria-label="Person B: tap to talk" aria-pressed="false">🎙️</button>
+        <div class="speaker-status" id="convStatusB">Tap to talk</div>
+      </div>
+    </div>
+    <div class="conv-log" id="convLog" aria-live="polite"></div>
+  </div>
 </div>
 
 <script>
 const LANGUAGES = [
-  {code:'fa', name:'Farsi / Persian', speechLocale:'fa-IR', flag:'🇮🇷'},
-  {code:'en', name:'English',         speechLocale:'en-US', flag:'🇬🇧'},
-  {code:'es', name:'Spanish',         speechLocale:'es-ES', flag:'🇪🇸'},
-  {code:'fr', name:'French',          speechLocale:'fr-FR', flag:'🇫🇷'},
-  {code:'de', name:'German',          speechLocale:'de-DE', flag:'🇩🇪'},
-  {code:'pt', name:'Portuguese',      speechLocale:'pt-PT', flag:'🇵🇹'},
-  {code:'it', name:'Italian',         speechLocale:'it-IT', flag:'🇮🇹'},
-  {code:'ar', name:'Arabic',          speechLocale:'ar-SA', flag:'🇸🇦'},
-  {code:'ja', name:'Japanese',        speechLocale:'ja-JP', flag:'🇯🇵'},
-  {code:'tr', name:'Turkish',         speechLocale:'tr-TR', flag:'🇹🇷'}
+  {code:'fa', name:'Farsi / Persian', speechLocale:'fa-IR', flag:'ir'},
+  {code:'en', name:'English',         speechLocale:'en-US', flag:'gb'},
+  {code:'es', name:'Spanish',         speechLocale:'es-ES', flag:'es'},
+  {code:'fr', name:'French',          speechLocale:'fr-FR', flag:'fr'},
+  {code:'de', name:'German',          speechLocale:'de-DE', flag:'de'},
+  {code:'pt', name:'Portuguese',      speechLocale:'pt-PT', flag:'pt'},
+  {code:'it', name:'Italian',         speechLocale:'it-IT', flag:'it'},
+  {code:'ar', name:'Arabic',          speechLocale:'ar-SA', flag:'sa'},
+  {code:'ja', name:'Japanese',        speechLocale:'ja-JP', flag:'jp'},
+  {code:'tr', name:'Turkish',         speechLocale:'tr-TR', flag:'tr'}
 ];
 
 const STORAGE_KEY = 'tongueTiedHistory';
@@ -656,6 +818,14 @@ const allLangsInput = document.getElementById('allLangsInput');
 const allLangsBtn = document.getElementById('allLangsBtn');
 const allLangsGrid = document.getElementById('allLangsGrid');
 
+const convLangA = document.getElementById('convLangA');
+const convLangB = document.getElementById('convLangB');
+const convMicA = document.getElementById('convMicA');
+const convMicB = document.getElementById('convMicB');
+const convStatusA = document.getElementById('convStatusA');
+const convStatusB = document.getElementById('convStatusB');
+const convLog = document.getElementById('convLog');
+
 function populateDropdowns() {
   LANGUAGES.forEach((l, index) => {
     const optSource = document.createElement('option');
@@ -674,6 +844,25 @@ function populateDropdowns() {
 }
 
 populateDropdowns();
+
+function populateConvDropdowns() {
+  LANGUAGES.forEach((l, index) => {
+    const optA = document.createElement('option');
+    optA.value = index;
+    optA.textContent = l.name;
+    convLangA.appendChild(optA);
+
+    const optB = document.createElement('option');
+    optB.value = index;
+    optB.textContent = l.name;
+    convLangB.appendChild(optB);
+  });
+
+  convLangA.value = 0; // Farsi
+  convLangB.value = 1; // English
+}
+
+populateConvDropdowns();
 
 // ---------- Conversation persistence (per-device, this browser only) ----------
 function loadHistory() {
@@ -736,7 +925,9 @@ function setMode(mode) {
   }
 }
 
-// ---------- Speech recognition (input) ----------
+// ---------- Speech recognition (input) — shared by chat mode and the live conversation panel ----------
+let activeMic = null; // null | 'chat' | 'A' | 'B'
+
 function initSpeech() {
   try {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -749,21 +940,24 @@ function initSpeech() {
       recognition.onresult = (event) => {
         if (event.results && event.results[0]) {
           const transcript = event.results[0][0].transcript;
-          stopRecording();
-          sendMessage(transcript);
+          const ctx = stopListening();
+          if (ctx === 'chat') sendMessage(transcript);
+          else if (ctx === 'A' || ctx === 'B') handleConversationTurn(ctx, transcript);
         }
       };
       recognition.onerror = (event) => {
-        stopRecording();
+        const ctx = stopListening();
+        let msg = "Tap the microphone and start talking";
         if (event && (event.error === 'not-allowed' || event.error === 'service-not-allowed')) {
-          voiceStatusText.textContent = "Microphone access is blocked — allow it in your browser settings and try again.";
+          msg = "Microphone access is blocked — allow it in your browser settings and try again.";
         } else if (event && event.error === 'no-speech') {
-          voiceStatusText.textContent = "Didn't catch that — tap the mic and try again.";
-        } else {
-          voiceStatusText.textContent = "Tap the microphone and start talking";
+          msg = "Didn't catch that — tap the mic and try again.";
         }
+        if (ctx === 'chat') voiceStatusText.textContent = msg;
+        else if (ctx === 'A') convStatusA.textContent = msg;
+        else if (ctx === 'B') convStatusB.textContent = msg;
       };
-      recognition.onend = () => stopRecording();
+      recognition.onend = () => stopListening();
     }
   } catch (e) {
     speechSupported = false;
@@ -772,43 +966,86 @@ function initSpeech() {
 
 initSpeech();
 
-function startRecording() {
+function startListening(context) {
   if (!recognition) {
-    addMessage("This browser can't listen for speech — that's common inside the WhatsApp or Instagram in-app browser. Open this page in Safari or Chrome instead, or just type your message.", 'error');
+    if (context === 'chat') {
+      addMessage("This browser can't listen for speech — that's common inside the WhatsApp or Instagram in-app browser. Open this page in Safari or Chrome instead, or just type your message.", 'error');
+    } else {
+      const statusEl = context === 'A' ? convStatusA : convStatusB;
+      statusEl.textContent = "Voice isn't supported in this browser — try Safari or Chrome, or use the text boxes above.";
+    }
     return;
   }
-  try {
-    isRecording = true;
+  if (activeMic) return; // one mic at a time
+
+  activeMic = context;
+  isRecording = true;
+
+  let langObj;
+  if (context === 'chat') langObj = LANGUAGES[sourceSelect.value];
+  else if (context === 'A') langObj = LANGUAGES[convLangA.value];
+  else langObj = LANGUAGES[convLangB.value];
+  recognition.lang = langObj.speechLocale;
+
+  if (context === 'chat') {
     micBtn.classList.add('recording');
     micBtn.setAttribute('aria-pressed', 'true');
     bigMicBtn.classList.add('recording');
     bigMicBtn.setAttribute('aria-pressed', 'true');
     voiceStatusText.textContent = "Listening…";
+  } else if (context === 'A') {
+    convMicA.classList.add('recording');
+    convMicA.setAttribute('aria-pressed', 'true');
+    convStatusA.textContent = "Listening…";
+  } else {
+    convMicB.classList.add('recording');
+    convMicB.setAttribute('aria-pressed', 'true');
+    convStatusB.textContent = "Listening…";
+  }
 
-    const srcObj = LANGUAGES[sourceSelect.value];
-    recognition.lang = srcObj.speechLocale;
+  try {
     recognition.start();
   } catch (e) {
-    stopRecording();
+    stopListening();
   }
 }
 
-function stopRecording() {
+function stopListening() {
+  const ctx = activeMic;
+  activeMic = null;
   isRecording = false;
+
   micBtn.classList.remove('recording');
   micBtn.setAttribute('aria-pressed', 'false');
   bigMicBtn.classList.remove('recording');
   bigMicBtn.setAttribute('aria-pressed', 'false');
-  if (voiceStatusText.textContent === 'Listening…') {
+  convMicA.classList.remove('recording');
+  convMicA.setAttribute('aria-pressed', 'false');
+  convMicB.classList.remove('recording');
+  convMicB.setAttribute('aria-pressed', 'false');
+
+  if (ctx === 'chat' && voiceStatusText.textContent === 'Listening…') {
     voiceStatusText.textContent = "Tap the microphone and start talking";
   }
+  if (ctx === 'A' && convStatusA.textContent === 'Listening…') convStatusA.textContent = "Tap to talk";
+  if (ctx === 'B' && convStatusB.textContent === 'Listening…') convStatusB.textContent = "Tap to talk";
+
   if (recognition) {
     try { recognition.stop(); } catch (e) {}
   }
+  return ctx;
 }
 
-micBtn.addEventListener('click', () => isRecording ? stopRecording() : startRecording());
-bigMicBtn.addEventListener('click', () => isRecording ? stopRecording() : startRecording());
+function toggleMic(context) {
+  if (activeMic === context) stopListening();
+  else if (!activeMic) startListening(context);
+  // if a different mic is already active, ignore the tap rather than talk over it
+}
+
+micBtn.addEventListener('click', () => toggleMic('chat'));
+bigMicBtn.addEventListener('click', () => toggleMic('chat'));
+convMicA.addEventListener('click', () => toggleMic('A'));
+convMicB.addEventListener('click', () => toggleMic('B'));
 
 // ---------- Speech synthesis (output) ----------
 function speak(text, locale) {
@@ -897,7 +1134,7 @@ function buildAllLangsGrid() {
     row.className = 'lang-result';
     row.id = `langrow-${l.code}`;
     row.innerHTML = `
-      <div class="lang-name"><span aria-hidden="true">${l.flag}</span> ${l.name}</div>
+      <div class="lang-name"><svg class="flag-icon-sm" aria-hidden="true"><use href="#flag-${l.flag}"></use></svg> ${l.name}</div>
       <div class="lang-text placeholder">Translation will show up here.</div>
     `;
     allLangsGrid.appendChild(row);
@@ -943,6 +1180,63 @@ async function translateToAllLanguages(text) {
 
 allLangsBtn.addEventListener('click', () => translateToAllLanguages(allLangsInput.value));
 allLangsInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') translateToAllLanguages(allLangsInput.value); });
+
+// ---------- Live conversation panel ----------
+function addConvError(text) {
+  const div = document.createElement('div');
+  div.className = 'conv-bubble conv-error';
+  div.textContent = text;
+  convLog.appendChild(div);
+  convLog.scrollTop = convLog.scrollHeight;
+}
+
+function addConvTurn(side, originalText, fromName, translatedText, toName) {
+  const div = document.createElement('div');
+  div.className = 'conv-bubble ' + (side === 'A' ? 'side-a' : 'side-b');
+  const originalEl = document.createElement('div');
+  originalEl.className = 'conv-original';
+  originalEl.textContent = `${fromName}: "${originalText}"`;
+  const translatedEl = document.createElement('div');
+  translatedEl.className = 'conv-translated';
+  translatedEl.textContent = `→ ${toName}: ${translatedText}`;
+  div.appendChild(originalEl);
+  div.appendChild(translatedEl);
+  convLog.appendChild(div);
+  convLog.scrollTop = convLog.scrollHeight;
+}
+
+function showConvTyping() {
+  const el = document.createElement('div');
+  el.className = 'typing-dots';
+  el.id = 'convTypingIndicator';
+  el.innerHTML = '<span></span><span></span><span></span>';
+  el.setAttribute('aria-label', 'Translating…');
+  convLog.appendChild(el);
+  convLog.scrollTop = convLog.scrollHeight;
+}
+
+function hideConvTyping() {
+  const el = document.getElementById('convTypingIndicator');
+  if (el) el.remove();
+}
+
+async function handleConversationTurn(side, text) {
+  if (!text || !text.trim()) return;
+
+  const fromObj = side === 'A' ? LANGUAGES[convLangA.value] : LANGUAGES[convLangB.value];
+  const toObj = side === 'A' ? LANGUAGES[convLangB.value] : LANGUAGES[convLangA.value];
+
+  showConvTyping();
+  try {
+    const translated = await translateText(text, fromObj.code, toObj.code);
+    hideConvTyping();
+    addConvTurn(side, text, fromObj.name, translated, toObj.name);
+    speak(translated, toObj.speechLocale);
+  } catch (err) {
+    hideConvTyping();
+    addConvError("Couldn't reach the translation service. Check your connection and try again.");
+  }
+}
 
 // ---------- Init ----------
 loadHistory();
